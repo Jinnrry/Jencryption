@@ -1,0 +1,72 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <style>
+        /*#result {*/
+        /*    width: 800px;*/
+        /*}*/
+
+        /*#result img {*/
+        /*    width: 100%;*/
+        /*}*/
+    </style>
+
+</head>
+<body>
+<div>
+    <label>请选择一个图像文件：</label>
+    <br>
+    <label for="option">执行操作:</label>
+    <select id="option">
+        <option value="encrypt">加密</option>
+        <option value="decrypt">解密</option>
+    </select>
+    <br>
+    <label for="pwd">密码:</label>
+    <br>
+    <input type="password" id="pwd">
+    <br>
+    <input type="file" id="file_input" value="选择文件"/>
+</div>
+<div id="result"></div>
+
+
+<script src="./md5.min.js"></script>
+<script src="./core.js"></script>
+<script type="text/javascript">
+    var result = document.getElementById("result");
+    var input = document.getElementById("file_input");
+    var option = document.getElementById("option")
+
+
+    if (typeof FileReader === 'undefined') {
+        result.innerHTML = "抱歉，你的浏览器不支持 FileReader";
+        input.setAttribute('disabled', 'disabled');
+    } else {
+        input.addEventListener('change', readFile, false);
+    }
+
+    function readFile() {
+        var file = this.files[0];
+        if (!/image\/\w+/.test(file.type)) {
+            alert("文件必须为图片！");
+            return false;
+        }
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            var pwd = document.getElementById("pwd")
+            result.innerHTML = '<img id="res_img" src="' + this.result + '" alt=""/>'
+            var option_value = option.options[option.selectedIndex].value
+            if (option_value === "encrypt") {
+                EncryptImage(document.getElementById("res_img"), pwd.value)
+            } else {
+                DecryptImage(document.getElementById("res_img"), pwd.value)
+            }
+        }
+    }
+</script>
+</body>
+</html>
