@@ -46,6 +46,8 @@ DecryptAllImage("你的密码")  // 解密页面上全部图片
 </script>
 ```
 
+3、在线工具 [https://xjiangwei.cn/Jencryption/](https://xjiangwei.cn/Jencryption/)
+
 ### 有谁用？
 
 [Jinnrry Blog 全站文章图片均加密 ](https://xjiangwei.cn)
